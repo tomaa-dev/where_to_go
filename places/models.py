@@ -38,7 +38,12 @@ class PlaceImage(models.Model):
         verbose_name='Место'
     )
     place_image = models.ImageField(
-        verbose_name='Ссылка на изображение',
+        verbose_name='Картинка',
+    )
+    position = models.PositiveIntegerField(
+        default=0,
+        verbose_name='Позиция',
+        db_index=True
     )
 
     def __str__(self):
