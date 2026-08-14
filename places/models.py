@@ -25,6 +25,15 @@ class Place(models.Model):
         null=True,
         verbose_name='Широта'
     )
+    position = models.PositiveIntegerField(
+        default=0,
+        blank=False, 
+        null=False,
+        verbose_name='Позиция',
+    )
+
+    class Meta:
+        ordering = ['position']
 
     def __str__(self):
         return self.title
@@ -42,9 +51,13 @@ class PlaceImage(models.Model):
     )
     position = models.PositiveIntegerField(
         default=0,
+        blank=False, 
+        null=False,
         verbose_name='Позиция',
-        db_index=True
     )
+
+    class Meta:
+        ordering = ['position']
 
     def __str__(self):
         return f"{self.id} {self.place.title}"
