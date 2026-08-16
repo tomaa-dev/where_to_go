@@ -1,6 +1,6 @@
 # Пишем Яндекс.Афишу
 
-[![where-to-go.gif](https://i.postimg.cc/bY92yPTX/where-to-go.gif)](https://postimg.cc/vDDmhpkX)
+![where_to_go](where_to_go.gif)
 
 
 Проект представляет собой интерактивную карту Москвы, на которой будут все известные ему виды активного отдыха с подробными описаниями и комментариями.
