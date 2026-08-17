@@ -1,7 +1,8 @@
-from django.shortcuts import render, get_object_or_404
-from django.urls import reverse
-from places.models import Place
 from django.http import JsonResponse
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse
+
+from places.models import Place
 
 
 def where_to_go(request):
