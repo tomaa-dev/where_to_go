@@ -32,11 +32,11 @@ class Command(BaseCommand):
 
         if created:
             images_urls = place_data.get('imgs')
-            for i, url in enumerate(images_urls):
+            for index, url in enumerate(images_urls):
                 img_response = requests.get(url)
                 filename = url.split('/')[-1]
                 place.images.create(
-                    position=i,
+                    position=index,
                     image=ContentFile(img_response.content, name=filename)
                 )
         else:
