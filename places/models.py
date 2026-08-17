@@ -45,6 +45,7 @@ class PlaceImage(models.Model):
         default=0,
         blank=False, 
         null=False,
+        db_index=True,
         verbose_name='Позиция',
     )
 
