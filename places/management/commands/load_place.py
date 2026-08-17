@@ -1,7 +1,8 @@
-from django.core.management.base import BaseCommand
 import requests
-from places.models import Place, PlaceImage
 from django.core.files.base import ContentFile
+from django.core.management.base import BaseCommand
+
+from places.models import Place, PlaceImage
 
 
 class Command(BaseCommand):
@@ -15,14 +16,15 @@ class Command(BaseCommand):
         response = requests.get(json_url)
         place_data = response.json()
         place_title = place_data['title']
+        coordinates = place_data.get('coordinates', {})
 
         place, created = Place.objects.get_or_create(
             title=place_title,
             defaults={
                 "description_short": place_data.get('description_short', ''),
                 "description_long": place_data.get('description_long', ''),
-                "lng": float(place_data['coordinates']['lng']),
-                "lat": float(place_data['coordinates']['lat']),
+                "lng": coordinates.get('lng', 0),
+                "lat": coordinates.get('lat', 0),
             }
         )
 
