@@ -26,15 +26,6 @@ class Place(models.Model):
         null=True,
         verbose_name='Широта'
     )
-    position = models.PositiveIntegerField(
-        default=0,
-        blank=False, 
-        null=False,
-        verbose_name='Позиция',
-    )
-
-    class Meta:
-        ordering = ['position']
 
     def __str__(self):
         return self.title
@@ -47,7 +38,7 @@ class PlaceImage(models.Model):
         related_name='images',
         verbose_name='Место'
     )
-    place_image = models.ImageField(
+    image = models.ImageField(
         verbose_name='Картинка',
     )
     position = models.PositiveIntegerField(

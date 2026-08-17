@@ -36,7 +36,7 @@ def where_to_go(request):
 def place_detail_api(request, id):
     place = get_object_or_404(Place, id=id)
 
-    image_urls = [image.place_image.url for image in place.images.all()]
+    image_urls = [image.image.url for image in place.images.all()]
 
     place_data = {
         "title": place.title,

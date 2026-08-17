@@ -30,5 +30,7 @@ class Command(BaseCommand):
         for i, url in enumerate(images_urls):
             img_response = requests.get(url)
             filename = url.split('/')[-1]
-            image = PlaceImage(place=place, position=i)
-            image.place_image.save(filename, ContentFile(img_response.content), save=True)
+            place.images.create(
+                position=i,
+                image=ContentFile(img_response.content, name=filename)
+            )
