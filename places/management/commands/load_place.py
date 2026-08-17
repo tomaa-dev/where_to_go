@@ -8,8 +8,10 @@ from places.models import Place, PlaceImage
 class Command(BaseCommand):
     help = 'Загружает данные из json-файла'
 
+
     def add_arguments(self, parser):
         parser.add_argument('json_url', type=str)
+
 
     def handle(self, *args, **options):
         json_url = options['json_url']
@@ -28,11 +30,14 @@ class Command(BaseCommand):
             }
         )
 
-        images_urls = place_data.get('imgs')
-        for i, url in enumerate(images_urls):
-            img_response = requests.get(url)
-            filename = url.split('/')[-1]
-            place.images.create(
-                position=i,
-                image=ContentFile(img_response.content, name=filename)
-            )
+        if created:
+            images_urls = place_data.get('imgs')
+            for i, url in enumerate(images_urls):
+                img_response = requests.get(url)
+                filename = url.split('/')[-1]
+                place.images.create(
+                    position=i,
+                    image=ContentFile(img_response.content, name=filename)
+                )
+        else:
+            return
