@@ -17,11 +17,11 @@ def where_to_go(request):
                 "coordinates": [place.lng, place.lat]
             },
             "properties": {
-            "title": place.title,
-            "placeId": f"place_{place.id}",
-            "detailsUrl": reverse('place_detail_api', args=[place.id])
+                "title": place.title,
+                "placeId": f"place_{place.id}",
+                "detailsUrl": reverse('place_detail_api', args=[place.id])
             }
-        },)
+        })
 
     places_geojson = {
         "type": "FeatureCollection",
