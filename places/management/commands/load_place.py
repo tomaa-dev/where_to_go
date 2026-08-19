@@ -27,8 +27,8 @@ class Command(BaseCommand):
             defaults={
                 "short_description": place_data.get('description_short', ''),
                 "long_description": place_data.get('description_long', ''),
-                "lng": coordinates.get('lng', 0),
-                "lat": coordinates.get('lat', 0),
+                "lng": coordinates.get('lng'),
+                "lat": coordinates.get('lat'),
             }
         )
 
