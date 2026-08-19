@@ -1,3 +1,5 @@
+import sys
+
 import requests
 from django.core.files.base import ContentFile
 from django.core.management.base import BaseCommand
@@ -15,10 +17,15 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         json_url = options['json_url']
-        response = requests.get(json_url)
-        response.raise_for_status()
+        try:
+            response = requests.get(json_url)
+            response.raise_for_status()
+            place_data = response.json()
 
-        place_data = response.json()
+        except requests.RequestException as e:
+            self.stderr.write('Ошибка при загрузке json-файла')
+            sys.exit(1)
+
         place_title = place_data['title']
         coordinates = place_data.get('coordinates', {})
 
@@ -33,7 +40,7 @@ class Command(BaseCommand):
         )
 
         if created:
-            images_urls = place_data.get('imgs')
+            images_urls = place_data.get('imgs', [])
             for index, url in enumerate(images_urls):
                 img_response = requests.get(url)
                 img_response.raise_for_status()
@@ -43,5 +50,7 @@ class Command(BaseCommand):
                     position=index,
                     image=ContentFile(img_response.content, name=filename)
                 )
+            self.stdout.write('Локация успешно создана')
         else:
+            self.stdout.write('Такая локация уже есть в базе')
             return
