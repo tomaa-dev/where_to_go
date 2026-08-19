@@ -35,8 +35,7 @@ def where_to_go(request):
 
 
 def place_detail_api(request, id):
-    place_queryset = Place.objects.prefetch_related('images')
-    place = get_object_or_404(Place, id=id)
+    place = get_object_or_404(Place.objects.prefetch_related('images'), id=id)
 
     image_urls = [img.image.url for img in place.images.all()]
 
